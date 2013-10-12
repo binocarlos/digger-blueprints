@@ -1,6 +1,6 @@
 {
   "name": "digger-blueprints",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A warehouse that knows how to process blueprint XML and include external HTML field templates",
   "main": "src/index.js",
   "scripts": {
