@@ -41,6 +41,7 @@ module.exports = function(options, $digger){
 			var fns = list.map(function(file){
 
 				return function(nextfile){
+
 					fs.readFile(use_folder + '/' + file, 'utf8', function(error, content){
 						// blueprints
 						if(file.match(/\.xml$/i)){
