@@ -27,10 +27,16 @@ module.exports = function(options, $digger){
 
 	supplier.on('select', function(req, reply){
 		
-		var use_folder = base_folder + req.url;
+		// remove /select (i.e. discard contract)
+		var use_folder = base_folder + (req.url.replace(/\/select$/, ''));
 		var final_results = [];
 
 		fs.readdir(use_folder, function(error, list){
+
+			if(error){
+				reply('' + error);
+				return;
+			}
 
 			var fns = list.map(function(file){
 
@@ -51,7 +57,17 @@ module.exports = function(options, $digger){
 								name:file.replace(/\.html$/i, '')
 							})
 							nextfile();
-						}		
+						}
+						else if(file.match(/\.js/i)){
+							final_results.push({
+								_digger:{
+									tag:'controller'
+								},
+								src:content,
+								name:file.replace(/\.js/i, '')
+							})
+							nextfile();
+						}
 					})
 					
 				}
