@@ -20,7 +20,7 @@
     "url": "https://github.com/binocarlos/digger-blueprints/issues"
   },
   "dependencies": {
-    "digger-xml": "0.0.3",
+    "digger-xml": "~0.0.3",
     "digger-supplier": "~0.1.7",
     "async": "~0.2.9"
   }
