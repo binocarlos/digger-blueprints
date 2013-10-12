@@ -15,8 +15,9 @@
 var XML = require('digger-xml');
 var Supplier = require('digger-supplier');
 var fs = require('fs');
+var async = require('async');
 
-module.exports = function(options){
+module.exports = function(options, $digger){
 
 	options = options || {};
 
@@ -26,15 +27,42 @@ module.exports = function(options){
 
 	supplier.on('select', function(req, reply){
 		
-		var use_folder = base_folder;
-		var resource = req.headers['x-json-resource'];
-		if(resource && resource.folder){
-			use_folder += '/' + resource.folder;
-		}
+		var use_folder = base_folder + req.url;
+		var final_results = [];
 
-		console.log('-------------------------------------------');
-		console.log('use_folder');
-		console.dir(use_folder);
+		fs.readdir(use_folder, function(error, list){
+
+			var fns = list.map(function(file){
+
+				return function(nextfile){
+					fs.readFile(use_folder + '/' + file, 'utf8', function(error, content){
+						// blueprints
+						if(file.match(/\.xml$/i)){
+							final_results = final_results.concat(XML.parse(content));
+							nextfile();
+						}
+						// template
+						else if(file.match(/\.html$/i)){
+							final_results.push({
+								_digger:{
+									tag:'template'
+								},
+								html:content,
+								name:file.replace(/\.html$/i, '')
+							})
+							nextfile();
+						}		
+					})
+					
+				}
+				
+			})
+
+			async.parallel(fns, function(error){
+				reply(error, final_results);
+			})
+			
+		})
 	})
 
 	return supplier;
