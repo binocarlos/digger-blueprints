@@ -1,0 +1,22 @@
+{
+  "name": "digger-blueprints",
+  "version": "0.0.1",
+  "description": "A warehouse that knows how to process blueprint XML and include external HTML field templates",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/binocarlos/digger-blueprints.git"
+  },
+  "keywords": [
+    "digger",
+    "blueprint"
+  ],
+  "author": "Kai Davenport",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/binocarlos/digger-blueprints/issues"
+  }
+}
