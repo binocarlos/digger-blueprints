@@ -1,6 +1,6 @@
 {
   "name": "digger-blueprints",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Client side blueprint handler for digger",
   "main": "src/index.js",
   "scripts": {
@@ -19,6 +19,5 @@
   "bugs": {
     "url": "https://github.com/binocarlos/digger-blueprints/issues"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
