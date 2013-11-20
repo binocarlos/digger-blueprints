@@ -1,7 +1,7 @@
 {
   "name": "digger-blueprints",
   "version": "0.0.6",
-  "description": "A warehouse that knows how to process blueprint XML and include external HTML field templates",
+  "description": "Client side blueprint handler for digger",
   "main": "src/index.js",
   "scripts": {
     "test": "make test"
@@ -20,8 +20,5 @@
     "url": "https://github.com/binocarlos/digger-blueprints/issues"
   },
   "dependencies": {
-    "digger-xml": "~0.0.3",
-    "digger-supplier": "~0.1.7",
-    "async": "~0.2.9"
   }
 }
