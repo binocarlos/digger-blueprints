@@ -1,6 +1,6 @@
 {
   "name": "digger-blueprints",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "description": "Client side blueprint handler for digger",
   "main": "src/index.js",
   "scripts": {
