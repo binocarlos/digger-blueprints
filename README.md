@@ -1,6 +1,8 @@
 digger-blueprints
 =================
 
+![Build status](https://api.travis-ci.org/binocarlos/digger-blueprints.png)
+
 Client side blueprint handler for digger
 
 This is merged into $digger as the 'blueprints' property.

@@ -17,7 +17,7 @@
 	BLUEPRINTS
 	
 */
-module.exports = function(){
+module.exports = function($digger){
 
 	var blueprints = {};
 	var holder = null;
@@ -196,7 +196,7 @@ module.exports = function(){
 	  	}
 
 	  	if(for_blueprint.attr('children')){
-	  		return holder.find(for_blueprint.attr('children'));
+	  		return holder.find('[name='+for_blueprint.attr('children')+']');
 	  	}
 	  	else{
 	  		return holder;

@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/binocarlos/digger-blueprints/issues"
   },
-  "dependencies": {}
+  "devDependencies": {
+    "mocha": "~1.14.0",
+    "mocha-phantomjs": "~3.1.6",
+    "browserify": "*",
+    "digger-supplychain":"*",
+    "should": "~2.1.0"
+  }
 }
