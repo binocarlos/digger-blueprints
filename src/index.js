@@ -91,6 +91,7 @@ module.exports = function($digger){
 	  	ensure_holder();
 	  	holder.add(blueprint);
 	  	blueprints[blueprint.title()] = blueprint;
+	  	$digger.emit('blueprint', blueprint);
 	  	
 	    return this;
 	  },
