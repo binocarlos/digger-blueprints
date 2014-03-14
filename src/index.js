@@ -1,19 +1,5 @@
 /*
 
-	(The MIT License)
-
-	Copyright (C) 2005-2013 Kai Davenport
-
-	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
- */
-
-/*
-
 	BLUEPRINTS
 	
 */
@@ -30,6 +16,15 @@ module.exports = function($digger){
 	}
 
 	return {
+		inject:function(blueprints){
+			var self = this;
+			blueprints.find('blueprint').each(function(blueprint){
+        self.add(blueprint);
+      })
+      blueprints.find('template').each(function(template){
+        self.add_template(template.attr('name'), template.attr('html'));
+      })
+		},
 		/*
 		
 			connect to a backend warehouse and load blueprint and template containers
@@ -43,14 +38,43 @@ module.exports = function($digger){
 			var blueprintwarehouse = $digger.connect(warehouses);
 	    blueprintwarehouse('blueprint:tree')
 	      .ship(function(blueprints){
-	        blueprints.find('blueprint').each(function(blueprint){
-	          self.add(blueprint);
-	        })
-	        blueprints.find('template').each(function(template){
-	          self.add_template(template.attr('name'), template.attr('html'));
-	        })
+	      	self.inject(blueprints);
+	        
 	        done && done();
 	      })
+		},
+		// point to static XML files and process them on the client
+		// this means we can load blueprints from plugins
+		loadstatic:function(warehouses, done){
+			var self = this;
+			if(typeof(warehouses)=='string'){
+				warehouses = [warehouses];
+			}
+
+			var urls = [].concat(warehouses);
+
+			function load_next(){
+				if(urls.length<=0){
+					done && done();
+					return;
+				}
+				var url = urls.pop();
+
+				$digger.emit('http', {
+					method:'GET',
+					url:url
+				}, function(error, res, body){
+					if(error){
+						console.error(error);
+						return;
+					}
+					var blueprintfolder = $digger.create(body);
+					self.inject(blueprintfolder);
+					load_next();
+				})
+			}
+
+			load_next();
 		},
 		build_default:function(container){
 			var blueprint = $digger.create('blueprint');
