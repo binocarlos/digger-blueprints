@@ -15,7 +15,7 @@ module.exports = function($digger){
 		return holder;
 	}
 
-	return {
+	var api = {
 		inject:function(blueprints){
 			var self = this;
 			blueprints.find('blueprint').each(function(blueprint){
@@ -300,4 +300,9 @@ module.exports = function($digger){
 	    return this.templates[name];
 	  }
 	}
+
+	var folder = $digger.create('<blueprint name="folder"><field name="name" /></blueprint>');
+	api.add(folder);
+
+	return api;
 }
