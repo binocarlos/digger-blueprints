@@ -293,6 +293,18 @@ module.exports = function($digger){
 			this.templates[name] = plate.replace(/^\s+/, '').replace(/\s+$/);
 	    return this;
 	  },
+	  for_container:function(container){
+	  	var type = 'folder';
+	  	if(container){
+	  		if(container.digger('blueprint')){
+		  		type = container.digger('blueprint');
+		  	}
+		  	else {
+		  		type = container.tag();
+		  	}
+	  	}
+	  	return this.get(type);
+	  },
 	  get_template:function(name){
 	    if(arguments.length<=0){
 	      return this.templates;
