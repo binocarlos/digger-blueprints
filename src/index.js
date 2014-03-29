@@ -64,6 +64,7 @@ module.exports = function($digger){
 					method:'GET',
 					url:url
 				}, function(error, res, body){
+
 					if(error){
 						console.error(error);
 						return;
@@ -235,6 +236,16 @@ module.exports = function($digger){
 	      return blueprints;
 	    }
 	    return blueprints[name];
+	  },
+	  get_addbutton_blueprints:function(container){
+	  	var self = this;
+	  	var currentblueprint = this.for_container(container);
+      var blueprints = this.get_children(currentblueprint);
+
+      return blueprints.map(function(b){
+      	return self.get(b.attr('name'));
+      })
+
 	  },
 	  all_containers:function(visible){
 	  	if(!holder){
