@@ -242,9 +242,9 @@ module.exports = function($digger){
 	  	var currentblueprint = this.for_container(container);
       var blueprints = this.get_children(currentblueprint);
 
-      return blueprints.map(function(b){
+      return blueprints ? blueprints.map(function(b){
       	return self.get(b.attr('name'));
-      })
+      }) : [];
 
 	  },
 	  all_containers:function(visible){
